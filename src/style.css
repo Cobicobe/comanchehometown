@@ -1,0 +1,26 @@
+body {
+  font-family: sans-serif;
+  padding: 2rem;
+  background: #f7f7f7;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+input, select, textarea {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+button {
+  background: #2c7a7b;
+  color: white;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+}
