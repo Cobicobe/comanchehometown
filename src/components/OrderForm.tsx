@@ -1,64 +1,86 @@
-import React, { useState } from 'react'
-import emailjs from 'emailjs-com'
-
-const stores = [
-  'Delbert’s Grocery',
-  'Dollar General',
-  'Family Dollar',
-  'Thompson’s Pharmacy',
-  'Loves Convenience Store',
-  'Naks Convenience Store',
-  'Thirsty’s Cold Pop Shop',
-  'Comanche Feed and Grain',
-]
+import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 
 function OrderForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    store: stores[0],
-    order: '',
-  })
+    store: 'Comanche Feed & Grain',
+    order: ''
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const sendEmail = (e: React.FormEvent) => {
-    e.preventDefault()
+  const sendEmail = (e) => {
+    e.preventDefault();
+
     emailjs
-      .send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_PUBLIC_KEY')
+      .send(
+        'service_fo0rd1d',
+        'template_sx60l1b',
+        formData,
+        'MmGmvB-l5rMfTCJzo'
+      )
       .then(() => {
-        alert('Order sent!')
-        setFormData({ name: '', email: '', store: stores[0], order: '' })
+        alert('Order sent successfully!');
+        setFormData({
+          name: '',
+          email: '',
+          store: 'Comanche Feed & Grain',
+          order: ''
+        });
       })
-      .catch((err) => {
-        console.error('FAILED...', err)
-        alert('Failed to send')
-      })
-  }
+      .catch((error) => {
+        console.error('Email send error:', error);
+        alert('Failed to send order.');
+      });
+  };
 
   return (
     <form onSubmit={sendEmail}>
-      <label>Name:</label>
-      <input name="name" value={formData.name} onChange={handleChange} required />
-
-      <label>Email:</label>
-      <input name="email" type="email" value={formData.email} onChange={handleChange} required />
-
-      <label>Select Store:</label>
-      <select name="store" value={formData.store} onChange={handleChange}>
-        {stores.map((store) => (
-          <option key={store} value={store}>{store}</option>
-        ))}
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+      <select
+        name="store"
+        value={formData.store}
+        onChange={handleChange}
+        required
+      >
+        <option>Comanche Feed & Grain</option>
+        <option>Thompson's Pharmacy</option>
+        <option>Delbert’s Grocery</option>
+        <option>Family Dollar</option>
+        <option>Dollar General</option>
+        <option>Nak’s Convenience Store</option>
+        <option>Thirsty's Cold Pop Shop</option>
+        <option>Loves Convenience Store</option>
       </select>
-
-      <label>What do you need?</label>
-      <textarea name="order" value={formData.order} onChange={handleChange} required />
-
+      <textarea
+        name="order"
+        placeholder="What do you need?"
+        value={formData.order}
+        onChange={handleChange}
+        required
+      />
       <button type="submit">Send Order</button>
     </form>
-  )
+  );
 }
 
-export default OrderForm
+export default OrderForm;
