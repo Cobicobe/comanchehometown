@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from "react";
+import emailjs from "@emailjs/browser";
 
 export default function App() {
   const [orderDetails, setOrderDetails] = useState<string>("");
@@ -14,14 +15,19 @@ export default function App() {
     }
 
     try {
-      await fetch("YOUR_EMAIL_SERVICE_URL_HERE", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderDetails, paymentAmount }),
-      });
+      await emailjs.send(
+        "service_fo0rd1d",
+        "template_sx60l1b",
+        {
+          order_details: orderDetails,
+          payment_amount: paymentAmount,
+        },
+        "MmGmvB-l5rMfTCJzo"
+      );
 
       setSubmitted(true);
     } catch (error) {
+      console.error("Failed to send order:", error);
       alert("Failed to send order. Try again.");
     }
   };
@@ -86,4 +92,5 @@ export default function App() {
     </form>
   );
 }
+
 
